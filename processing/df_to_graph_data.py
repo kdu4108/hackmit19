@@ -1,20 +1,14 @@
-def write_speed_vs_time_data_to_csv():
-    """
-    TODO:
-    1. Read in a single json -> df using raw_data_processing.py
-    2. convert that df to have just timestamp, speed columns.
-    3. write to csv
+import json
+import numpy as np
+import pandas as pd
+import raw_data_processing as rdp
 
-    ex output:
-    Time, Speed
-    1, 2
-    2, 3
-    3, 5
-    4, 6
-    5, 7
-    6, 1
-    """
-    pass
+def write_speed_vs_time_data_to_csv(data):
+    
+    table = rdp.get_table(data)
+    table = table.drop(['engine_speed', 'brake_pedal_status', 'latitude',           'longitude', 'fuel_consumed_since_restart', 'steering_wheel_angle', 'fine_odometer_since_restart', 'parking_brake_status', 'headlamp_status', 'windshield_wiper_status', 'odometer', 'high_beam_status', 'fuel_level', 'ignition_status', 'powertrain_torque', 'accelerator_pedal_position', 'transmission_gear_position'], axis=1)
+    table.to_csv('time_v_speed.csv')
+    return table
 
 def write_mpg_vs_behavior_data_to_csv():
     """
@@ -34,7 +28,7 @@ def write_mpg_vs_behavior_data_to_csv():
     pass
 
 def main():
-    write_speed_vs_time_data_to_csv()
+    write_speed_vs_time_data_to_csv(data)
     write_mpg_vs_behavior_data_to_csv()
 
 if __name__ == "__main__":

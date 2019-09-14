@@ -33,6 +33,12 @@ def fix_nan_value(df, column, ignore, initial_value_dict, default_initial):
         df[column] = df[column].fillna(initial_value)
     
 def get_table(data_file, remove_nan=False):
+    """
+    Returns a pandas data frame given a data file.
+    remove_nan: False = don't remove nan rows
+                True = remove all nan rows
+                list of columns = remove all rows with nans in these columns
+    """
     json_datas = extract_dictionaries(data_file)
     data_dicts = [transform_dict(json_data) for json_data in json_datas]
     data_table = pd.DataFrame(data_dicts).set_index('timestamp').reset_index().fillna(method='ffill')
@@ -44,9 +50,19 @@ def get_table(data_file, remove_nan=False):
     fix_nan_value(data_table, 'button_state', [], {'pressed': 'depressed', 'depressed': 'pressed'}, 'depressed')
     fix_nan_value(data_table, 'transmission_gear_position', [], {}, 'first')
     fix_nan_value(data_table, 'brake_pedal_status', [], {False: True, True: False}, False)
+   
+    return remove_nan_from_table(data_table, remove_nan)
+    
+    
+def remove_nan_from_table(df, remove_nan):
     if remove_nan:
-        return data_table.dropna()
+        if isinstance(remove_nan, list):
+            first_index = max(df[column].first_valid_index() for column in remove_nan)
+            return df[first_index:].reset_index(drop=True)
+        else:
+            return df.dropna().reset_index(drop=True)
     else:
-        return data_table
+        return df
+    
     
     
