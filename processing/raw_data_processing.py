@@ -52,7 +52,7 @@ def get_table(data_file, remove_nan=False):
     fix_nan_value(data_table, 'brake_pedal_status', [], {False: True, True: False}, False)
     if remove_nan:
         if isinstance(remove_nan, list):
-            first_index = max(df[column].first_valid_index() for column in remove_nan)
+            first_index = max(data_table[column].first_valid_index() for column in remove_nan)
             return data_table[first_index:]
         else:
             return data_table.dropna()
