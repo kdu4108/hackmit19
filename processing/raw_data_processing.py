@@ -53,9 +53,9 @@ def get_table(data_file, remove_nan=False):
     if remove_nan:
         if isinstance(remove_nan, list):
             first_index = max(data_table[column].first_valid_index() for column in remove_nan)
-            return data_table[first_index:]
+            return data_table[first_index:].reset_index(drop=True)
         else:
-            return data_table.dropna()
+            return data_table.dropna().reset_index(drop=True)
     else:
         return data_table
     
