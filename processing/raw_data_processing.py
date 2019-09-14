@@ -23,19 +23,21 @@ def get_first_valid_value(df, column, ignore):
         return None
     
 def fix_nan_value(df, column, ignore, initial_value_dict, default_initial):
-    first_valid_value = get_first_valid_value(df, column, ignore)
-    initial_value = None
-    if first_valid_value in initial_value_dict:
-        initial_value = initial_value_dict[first_valid_value]
-    else:
-        initial_value = default_initial
-    df[column] = df[column].fillna(initial_value)
+    if column in df.columns:
+        first_valid_value = get_first_valid_value(df, column, ignore)
+        initial_value = None
+        if first_valid_value in initial_value_dict:
+            initial_value = initial_value_dict[first_valid_value]
+        else:
+            initial_value = default_initial
+        df[column] = df[column].fillna(initial_value)
     
 def get_table(data_file, remove_nan=False):
     json_datas = extract_dictionaries(data_file)
     data_dicts = [transform_dict(json_data) for json_data in json_datas]
     data_table = pd.DataFrame(data_dicts).set_index('timestamp').reset_index().fillna(method='ffill')
-    data_table = data_table.drop(['door_status'], axis=1)
+    if 'door_status' in data_table.columns:
+        data_table = data_table.drop(['door_status'], axis=1)
     fix_nan_value(data_table, 'ignition_status', ['accessory'], {'off': 'run'}, 'off')
     fix_nan_value(data_table, 'windshield_wiper_status', [], {False: True, True: False}, False)
     fix_nan_value(data_table, 'headlamp_status', [], {False: True, True: False}, False)
