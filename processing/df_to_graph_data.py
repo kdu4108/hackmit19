@@ -79,7 +79,13 @@ def write_mpg_vs_behavior_data_to_csv():
             
     
 def main():
-    write_speed_vs_time_data_to_csv(data)
+    for filename in os.listdir("../data/behavior"):
+        print(os.listdir("../data/behavior"))
+        if filename != 'parked.json': 
+            write_time_vs_speed_data_to_csv("../data/behavior/"+filename)
+        else:
+            continue
+
     write_mpg_vs_behavior_data_to_csv()
 
 if __name__ == "__main__":
