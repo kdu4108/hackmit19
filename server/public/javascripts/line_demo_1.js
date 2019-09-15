@@ -1,43 +1,29 @@
-var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+var time = [1, 2, 3, 4, 5];
+var variableOne = [1, 2, 3, 4, 5]
+var variableTwo = [2, 3, 4, 5, 6]
 var config = {
     type: 'line',
     data: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: time,
         datasets: [{
-            label: 'My First dataset',
+            label: 'time vs variable one',
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
+            data: variableOne,
             fill: false,
         }, {
-            label: 'My Second dataset',
+            label: 'time vs variable two',
             fill: false,
             backgroundColor: window.chartColors.blue,
             borderColor: window.chartColors.blue,
-            data: [
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor(),
-                randomScalingFactor()
-            ],
+            data: variableTwo,
         }]
     },
     options: {
         responsive: true,
         title: {
             display: true,
-            text: 'Chart.js Line Chart'
+            text: 'Variable One and Variable Two Over Time'
         },
         tooltips: {
             mode: 'index',
@@ -52,14 +38,14 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Month'
+                    labelString: 'Time'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Value'
+                    labelString: 'Driving Factors'
                 }
             }]
         }
@@ -69,16 +55,16 @@ window.onload = function() {
     var ctx = document.getElementById('canvas').getContext('2d');
     window.myLine = new Chart(ctx, config);
 };
-document.getElementById('randomizeData').addEventListener('click', function() {
+/*document.getElementById('randomizeData').addEventListener('click', function() {
     config.data.datasets.forEach(function(dataset) {
         dataset.data = dataset.data.map(function() {
             return randomScalingFactor();
         });
     });
     window.myLine.update();
-});
+});*/
 var colorNames = Object.keys(window.chartColors);
-document.getElementById('addDataset').addEventListener('click', function() {
+/*document.getElementById('addDataset').addEventListener('click', function() {
     var colorName = colorNames[config.data.datasets.length % colorNames.length];
     var newColor = window.chartColors[colorName];
     var newDataset = {
@@ -93,8 +79,8 @@ document.getElementById('addDataset').addEventListener('click', function() {
     }
     config.data.datasets.push(newDataset);
     window.myLine.update();
-});
-document.getElementById('addData').addEventListener('click', function() {
+});*/
+/*document.getElementById('addData').addEventListener('click', function() {
     if (config.data.datasets.length > 0) {
         var month = MONTHS[config.data.labels.length % MONTHS.length];
         config.data.labels.push(month);
@@ -114,4 +100,4 @@ document.getElementById('removeData').addEventListener('click', function() {
         dataset.data.pop();
     });
     window.myLine.update();
-});
+});*/
