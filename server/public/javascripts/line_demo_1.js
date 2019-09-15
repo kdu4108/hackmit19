@@ -137,6 +137,7 @@ window.onload = function() {
     var yData = [{title: 'Speed (kph)' , data: speed}, {title: 'Instantaneous MPG', data: mpg}];
     drawLineChart(xData, yData, name, 'canvas' + i);
   }
+  drawBarChart({title: 'Driving Behavior', labels: mpgData['Behavior']}, [{title: 'MPG', data: mpgData['MPG']}], 'Driving Behavior vs MPG', 'canvasMPG')
   // drawLineChart({title: 'Time (minutes)', data: time}, [{title: 'Speed (kph)', data: speed}], 'Highway Speed', 'canvas');
   // drawBarChart({title: 'Example', labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']}, [{title: 'Dataset 1', data: randomArray(7)}, {title: 'Dataset 2', data: randomArray(7)}], 'Example Bar Chart', 'newCanvas')
 };

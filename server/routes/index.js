@@ -4,20 +4,18 @@ const readCSV = require('./../public/javascripts/readCSV.js')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  var names = ['Aggressive Driving', 'Commute', 'Driving', 'Highway Speeding', 'Idling', 'Local with GPS', 'Riding Brakes', 'Tailgating'];
-  var fileNames = ['aggressive-driving', 'commute', 'driving', 'highway-speeding', 'idling', 'localwithgps', 'riding-brakes', 'tailgating'];
+  var names = ['Aggressive Driving', 'Commute', 'Highway Speeding', 'Idling', 'Riding Brakes', 'Tailgating'];
+  var fileNames = ['aggressive-driving', 'commute', 'highway-speeding', 'idling', 'riding-brakes', 'tailgating'];
   var filePromises = fileNames.map(function(fileName) {
     return readCSV.readCSV('behaviors/' + fileName + '.csv', 200);
   });
 
+
   Promise.all(filePromises).then(function(csvDatas) {
-    res.render('index', {title: 'expression', names: names, csvDatas: csvDatas });
+    readCSV.readCSV('behaviors/mpg_data.csv').then(function(mpgData) {
+      res.render('index', {title: 'expression', names: names, csvDatas: csvDatas, mpgData: mpgData });
+    })
   })
-
-
-  // readCSV.readCSV('time_v_speed.csv', 200).then(function(data) {
-  //   res.render('index', { title: 'Express', timeVsSpeed: data});
-  // });
 });
 
 module.exports = router;
