@@ -1,0 +1,29 @@
+body { overflow: hidden }
+#car { 
+    position: absolute; 
+    left: -1000px; 
+    width: 50% /* <- not relevant for the animation */ 
+}
+
+#cloud1 { 
+    /* position: absolute; 
+    left: -50px;  */
+    visibility: hidden;
+
+    width: 70% /* <- not relevant for the animation */ 
+}
+
+#cloud2 { 
+    /* position: absolute; 
+    left: 10px;  */
+    visibility: hidden;
+
+    width: 70% /* <- not relevant for the animation */ 
+}
+
+.container {
+    padding: 70px 0;
+        /* border: 3px solid green; */
+    display: flex;
+    justify-content: space-evenly;
+}

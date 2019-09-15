@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 const readCSV = require('./../public/javascripts/readCSV.js')
 
-/* GET home page. */
+/* GET cities page. */
 router.get('/', function(req, res, next) {
+  res.render('landing', { title: 'Welcome!'});
+});
+
+/* GET home page. */
+router.get('/behaviors', function(req, res, next) {
   var names = ['Aggressive Driving', 'Commute', 'Highway Speeding', 'Idling', 'Riding Brakes', 'Tailgating'];
   var fileNames = ['aggressive-driving', 'commute', 'highway-speeding', 'idling', 'riding-brakes', 'tailgating'];
   var filePromises = fileNames.map(function(fileName) {
