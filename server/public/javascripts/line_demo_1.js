@@ -3,29 +3,24 @@ var speed = timeVsSpeed.vehicle_speed;
 var firstTime = time[0];
 time = time.map((t)=>moment.unix(t-firstTime).format('m:ss'));
 
-var drawLineChart = function(x, y, title, xTitle, yTitle, showLegend, canvasID) {
+var drawLineChart = function(x, ys, title, canvasID) {
   var config = {
       type: 'line',
       data: {
-          labels: x,
-          datasets: [{
-              label: xTitle + ' vs ' + yTitle,
-              backgroundColor: window.chartColors.red,
-              borderColor: window.chartColors.red,
-              data: y,
-              fill: false,
-            }]
-          // }, {
-          //     label: 'time vs variable two',
-          //     fill: false,
-          //     backgroundColor: window.chartColors.blue,
-          //     borderColor: window.chartColors.blue,
-          //     data: variableTwo,
-          // }]
+          labels: x.data,
+          datasets: ys.map(function(y, i) {
+            return {
+              label: x.title + ' vs' + y.title,
+              backgroundColor: window.chartColors[Object.keys(window.chartColors)[i]],
+              borderColor: window.chartColors[Object.keys(window.chartColors)[i]],
+              data: y.data,
+              fill: false
+            }
+          })
       },
       options: {
           legend: {
-            display: showLegend
+            display: ys.length > 1
           },
           responsive: true,
           title: {
@@ -45,16 +40,18 @@ var drawLineChart = function(x, y, title, xTitle, yTitle, showLegend, canvasID) 
                   display: true,
                   scaleLabel: {
                       display: true,
-                      labelString: xTitle
+                      labelString: x.title
                   }
               }],
-              yAxes: [{
+              yAxes: ys.map(function(y) {
+                return {
                   display: true,
                   scaleLabel: {
-                      display: true,
-                      labelString: yTitle
+                    display: true,
+                    labelString: y.title
                   }
-              }]
+                }
+              })
           }
       }
   };
@@ -64,7 +61,8 @@ var drawLineChart = function(x, y, title, xTitle, yTitle, showLegend, canvasID) 
 
 
 window.onload = function() {
-  drawLineChart(time, speed, 'Highway Speed', 'Time (minutes)', 'Speed (kph)', false, 'canvas');
+  drawLineChart({title: 'Time (minutes)', data: time}, [{title: 'Speed (kph)', data: speed}], 'Highway Speed', 'canvas');
+  // drawLineChart(time, speed, 'Highway Speed', 'Time (minutes)', 'Speed (kph)', false, 'canvas');
     // var ctx = document.getElementById('canvas').getContext('2d');
     // window.myLine = new Chart(ctx, config);
 };
