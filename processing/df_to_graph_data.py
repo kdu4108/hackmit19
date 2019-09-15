@@ -1,13 +1,20 @@
+
+# coding: utf-8
+
+# In[1]:
+
 import json
-from os import listdir
-from os.path import isfile, join
+import os
 import numpy as np
 import pandas as pd
 import raw_data_processing as rdp
 import matplotlib
 from raw_data_processing import get_table, remove_nan_from_table
 
-def write_time_vs_speed_data_to_csv(filename):
+
+# In[2]:
+
+def write_time_vs_speed_data_to_csv(filename, csv_dest):
     table = rdp.get_table(filename)
     cols_wanted = ['timestamp','vehicle_speed', 'fuel_consumed_since_restart','odometer']
     cols_to_delete = []
@@ -26,13 +33,21 @@ def write_time_vs_speed_data_to_csv(filename):
     table[['instantaneous_mpg']] = table[['instantaneous_mpg']].fillna(value=0)
     table.drop(table.columns.difference(["timestamp", "vehicle_speed", "instantaneous_mpg"]), 1, inplace=True)
     behavior = filename.split("/")[-1][:-5]
-    table.to_csv(f"../data/time_v_speed_and_mpg/{behavior}.csv")
+    table.to_csv(csv_dest)
     return table
 
-    
+
+# In[ ]:
+
+tbl = write_time_vs_speed_data_to_csv("../data/behavior/aggressive-driving.json", "../server/public/csv/behaviors/aggressive-driving.csv")
+print(tbl)
+
+
+# In[21]:
+
 def write_mpg_vs_behavior_data_to_csv():
     BEHAVIOR_DATA_DIR = '../data/behavior'
-    BEHAVIOR_DATA_FILES = [f for f in listdir(BEHAVIOR_DATA_DIR) if isfile(join(BEHAVIOR_DATA_DIR, f))]
+    BEHAVIOR_DATA_FILES = [f for f in os.listdir(BEHAVIOR_DATA_DIR) if os.path.isfile(os.path.join(BEHAVIOR_DATA_DIR, f))]
     BAD_DATA = ['localwithgps.json', 'driving.json']
     BEHAVIOR_DATA_FILES = [f for f in BEHAVIOR_DATA_FILES if f not in BAD_DATA]
     
@@ -66,7 +81,7 @@ def write_mpg_vs_behavior_data_to_csv():
     
     data = []
     for file_name in BEHAVIOR_DATA_FILES:
-        df = get_table(join(BEHAVIOR_DATA_DIR, file_name))
+        df = get_table(os.path.join(BEHAVIOR_DATA_DIR, file_name))
         relevant_columns = get_desired_columns(df, [['odometer', 'fine_odometer_since_restart'], ['fuel_consumed_since_restart']])
         df = remove_nan_from_table(df, relevant_columns)
         df = df[relevant_columns]
@@ -79,14 +94,53 @@ def write_mpg_vs_behavior_data_to_csv():
             
     
 def main():
+    behaviors = "../server/public/csv/behaviors/"
+    cities = "../server/public/csv/cities/"
+    
+    
     for filename in os.listdir("../data/behavior"):
-        print(os.listdir("../data/behavior"))
+        name = filename[0:len(filename)-5]
+        destination = behaviors + name + ".csv"
+        print(destination)
         if filename != 'parked.json': 
-            write_time_vs_speed_data_to_csv("../data/behavior/"+filename)
+            write_time_vs_speed_data_to_csv("../data/behavior/"+filename, destination)
         else:
             continue
+            
+    for filename in os.listdir("../data/cities/nyc"):
+        name = filename[0:len(filename)-5]
+        destination = cities + "nyc/" + name + ".csv"
+        print(destination)
+        write_time_vs_speed_data_to_csv("../data/cities/nyc/"+filename, destination)
+        
+    for filename in os.listdir("../data/cities/taiwan"):
+        
+        name = filename[0:len(filename)-5]
+        if name == ".DS_": continue
+        print(name)
+        destination = cities + "taiwan/" + name + ".csv"
+        print(destination)
+        write_time_vs_speed_data_to_csv("../data/cities/taiwan/"+filename, destination)
+        
+    for filename in os.listdir("../data/cities/delhi"):
+        name = filename[0:len(filename)-5]
+        destination = cities + "delhi/" + name + ".csv"
+        print(destination)
+        write_time_vs_speed_data_to_csv("../data/cities/delhi/"+filename, destination)
+            
 
     write_mpg_vs_behavior_data_to_csv()
 
 if __name__ == "__main__":
     main()
+
+
+# In[ ]:
+
+
+
+
+# In[ ]:
+
+
+
