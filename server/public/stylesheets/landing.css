@@ -50,6 +50,17 @@ body {
     position: relative;
 }
 
+.cloud {
+    color: white;
+}
+.cloud:hover {
+    cursor: pointer;
+    font-size: 24px;
+    opacity: 0.5;
+    color: black;
+}
+
+
 .centered {
     position: absolute;
     top: 50%;
