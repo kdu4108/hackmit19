@@ -41,7 +41,7 @@ def get_table(data_file, remove_nan=False):
     """
     json_datas = extract_dictionaries(data_file)
     data_dicts = [transform_dict(json_data) for json_data in json_datas]
-    data_table = pd.DataFrame(data_dicts).set_index('timestamp').reset_index().fillna(method='ffill')
+    data_table = pd.DataFrame(data_dicts).set_index('timestamp').reset_index().interpolate(method='linear')
     if 'door_status' in data_table.columns:
         data_table = data_table.drop(['door_status'], axis=1)
     fix_nan_value(data_table, 'ignition_status', ['accessory'], {'off': 'run'}, 'off')
