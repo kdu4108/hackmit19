@@ -1,8 +1,11 @@
 <h1>Analysis of Factors Affecting Fuel Efficiency</h1>
 {{!-- <p>Welcome to {{title}}</p> --}}
 <div style="width:100%;">
-  <canvas id="canvas"></canvas>
-  <canvas id="newCanvas"></canvas>
+  <canvas id="canvasMPG"></canvas>
+  {{#each names}}
+    <canvas id="canvas{{@index}}"></canvas>
+  {{/each}}
+
   {{!-- <canvas id="barChartCanvas"></canvas> --}}
 </div>
 <br>
@@ -13,7 +16,9 @@
 {{!-- <button id="addData">Add Data</button> --}}
 {{!-- <button id="removeData">Remove Data</button> --}}
 <script>
-var timeVsSpeed = {{{json timeVsSpeed}}};
+var csvDatas = {{{json csvDatas}}}
+var names = {{{json names}}}
+var mpgData = {{{json mpgData}}}
 </script>
 <script src="/javascripts/utils.js"></script>
 <script src="/javascripts/line_demo_1.js"></script>
