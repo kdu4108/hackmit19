@@ -1,7 +1,7 @@
-var time = timeVsSpeed.timestamp;
-var speed = timeVsSpeed.vehicle_speed;
-var firstTime = time[0];
-time = time.map((t)=>moment.unix(t-firstTime).format('m:ss'));
+var formatTimes = function(times) {
+  firstTime = times[0];
+  return times.map((t)=>moment.unix(t-firstTime).format('m:ss'));
+}
 
 var nthColor = function(n, total) {
   var colors = Object.keys(window.chartColors);
@@ -21,6 +21,14 @@ var randomArray = function(n) {
   return arr;
 }
 
+var displaySide = function(n) {
+  return n % 2 == 0 ? 'left' : 'right';
+}
+
+var displayGrid = function(n) {
+  return n == 0;
+}
+
 
 var drawLineChart = function(x, ys, title, canvasID) {
   var config = {
@@ -29,11 +37,12 @@ var drawLineChart = function(x, ys, title, canvasID) {
           labels: x.data,
           datasets: ys.map(function(y, i) {
             return {
-              label: x.title + ' vs' + y.title,
+              label: y.title,
               backgroundColor: nthColor(i, ys.length),
               borderColor: nthColor(i, ys.length),
               data: y.data,
-              fill: false
+              fill: false,
+              yAxisID: i
             }
           })
       },
@@ -62,12 +71,18 @@ var drawLineChart = function(x, ys, title, canvasID) {
                       labelString: x.title
                   }
               }],
-              yAxes: ys.map(function(y) {
+              yAxes: ys.map(function(y, i) {
                 return {
+                  type: 'linear',
                   display: true,
+                  position: displaySide(i, ys.length),
+                  id: i,
                   scaleLabel: {
                     display: true,
                     labelString: y.title
+                  },
+                  gridLines: {
+                    drawOnChartArea: displayGrid(i)
                   }
                 }
               })
@@ -112,8 +127,18 @@ var drawBarChart = function(x, ys, title, canvasID) {
 
 
 window.onload = function() {
-  drawLineChart({title: 'Time (minutes)', data: time}, [{title: 'Speed (kph)', data: speed}], 'Highway Speed', 'canvas');
-  drawBarChart({title: 'Example', labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']}, [{title: 'Dataset 1', data: randomArray(7)}, {title: 'Dataset 2', data: randomArray(7)}], 'Example Bar Chart', 'newCanvas')
+  console.log(csvDatas);
+  for (var i = 0; i < names.length; i++) {
+    time = csvDatas[i].timestamp;
+    speed = csvDatas[i].vehicle_speed;
+    mpg = csvDatas[i].instantaneous_mpg;
+    name = names[i];
+    var xData = {title: 'Time (minutes)', data: formatTimes(time)};
+    var yData = [{title: 'Speed (kph)' , data: speed}, {title: 'Instantaneous MPG', data: mpg}];
+    drawLineChart(xData, yData, name, 'canvas' + i);
+  }
+  // drawLineChart({title: 'Time (minutes)', data: time}, [{title: 'Speed (kph)', data: speed}], 'Highway Speed', 'canvas');
+  // drawBarChart({title: 'Example', labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July']}, [{title: 'Dataset 1', data: randomArray(7)}, {title: 'Dataset 2', data: randomArray(7)}], 'Example Bar Chart', 'newCanvas')
 };
 
 var colorNames = Object.keys(window.chartColors);
