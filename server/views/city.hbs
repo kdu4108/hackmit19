@@ -1,0 +1,14 @@
+<h1>{{name}}</h1>
+<div style = "width: 100%"></div>
+  <canvas id = "mpgcanvas"></canvas>
+</div>
+{{#each subCities}}
+<a href = "/cities/{{../cityRoute}}/{{route}}" style = "color: inherit;">
+  <div style = "height: 100px; background-color: rgba(255, 0, 0, 0.5); padding: 10px; margin: 10px;">
+    <h2 style = 'line-height: 50px;'>{{name}}</h2>
+  </div>
+</a>
+{{/each}}
+<script src="/javascripts/utils.js"></script>
+<script src="/javascripts/chart_utilities.js"></script>
+<script src="/javascripts/city.js"></script>

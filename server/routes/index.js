@@ -1,7 +1,8 @@
 var express = require('express');
 var router = express.Router();
-const readCSV = require('./../public/javascripts/readCSV.js')
-
+const readCSV = require('./../public/javascripts/readCSV.js');
+const fs = require('fs');
+const path = require('path');
 
 var capitalize = function(word) {
   return word[0].toUpperCase() + word.substring(1, word.length).toLowerCase();
@@ -30,6 +31,32 @@ router.get('/', function(req, res, next) {
 
 router.get('/cities', function(req, res, next) {
   res.render('cities', {title: 'Cities'});
+})
+
+router.get('/cities/:cityName', function(req, res, next) {
+  var cityName = formatName(req.params.cityName);
+  var cityRoute = req.params.cityName;
+  var cityMap = {
+    'New York City': 'nyc',
+    'Delhi': 'delhi',
+    'Taiwan': 'taiwan'
+  };
+  var subCityMap = {
+    'New York City': (n) => n.replace('-', '_').replace('.csv', ''),
+    'Taiwan': (n) => n.match(/[A-z][a-z]+/g).join('_').replace('-can.csv', ''),
+    'Delhi': (n) => n.replace('.csv', '')
+  };
+
+  var files = fs.readdirSync(path.resolve(__dirname, '../public/csv/cities/' + cityMap[cityName] + '/'));
+  var subCities = files.map(function(f) {
+    return {
+      route: subCityMap[cityName](f),
+      name: formatName(subCityMap[cityName](f))
+    }
+  })
+
+  res.render('city', {title: cityName, name: cityName, cityRoute: cityRoute, subCities: subCities});
+
 })
 
 router.get('/cities/:cityName/:subCityName', function(req, res, next) {
