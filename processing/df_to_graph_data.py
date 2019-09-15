@@ -7,8 +7,8 @@ import raw_data_processing as rdp
 import matplotlib
 from raw_data_processing import get_table, remove_nan_from_table
 
-def write_time_vs_speed_data_to_csv(data):
-    table = rdp.get_table(data)
+def write_time_vs_speed_data_to_csv(filename):
+    table = rdp.get_table(filename)
     cols_wanted = ['timestamp','vehicle_speed', 'fuel_consumed_since_restart','odometer']
     cols_to_delete = []
     for col in list(table):
@@ -16,11 +16,20 @@ def write_time_vs_speed_data_to_csv(data):
             cols_to_delete.append(col)
     table = table.drop(cols_to_delete, axis=1)
     table = rdp.remove_nan_from_table(table, cols_wanted)
-    mpg = [0] + list(np.diff(table['odometer']))
-    table['instantaneous_mpg'] = mpg
-    table.to_csv('time_v_speed.csv')
+    np_delta_d = np.diff(table['odometer'], n = 1)
+    np_delta_f = np.diff(table['fuel_consumed_since_restart'], n = 1)
+    np_mpg = np.divide(np_delta_d, np_delta_f, out = np.zeros_like(np_delta_d), where=np_delta_f != 0)
+    table['instantaneous_mpg'] = [0] *1 + list(np_mpg)
+    table.loc[table['instantaneous_mpg'] <= 0,'instantaneous_mpg'] = np.nan
+    table.loc[table['instantaneous_mpg'] >= 100,'instantaneous_mpg'] = np.nan
+    table = table.interpolate(method="linear", limit=1000)
+    table[['instantaneous_mpg']] = table[['instantaneous_mpg']].fillna(value=0)
+    table.drop(table.columns.difference(["timestamp", "vehicle_speed", "instantaneous_mpg"]), 1, inplace=True)
+    behavior = filename.split("/")[-1][:-5]
+    table.to_csv(f"../data/time_v_speed_and_mpg/{behavior}.csv")
     return table
 
+    
 def write_mpg_vs_behavior_data_to_csv():
     BEHAVIOR_DATA_DIR = '../data/behavior'
     BEHAVIOR_DATA_FILES = [f for f in listdir(BEHAVIOR_DATA_DIR) if isfile(join(BEHAVIOR_DATA_DIR, f))]
