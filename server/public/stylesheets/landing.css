@@ -3,8 +3,15 @@
     src: url('/fonts/Rubik-Medium.ttf');
 }
 
+#header{
+    display: inline;
+
+    text-align: center;
+}
+
 body { 
-    overflow: hidden,
+    overflow: hidden;
+    background-color: white;
 }
 
 #car { 
@@ -53,6 +60,7 @@ body {
 .cloud {
     color: white;
 }
+
 .cloud:hover {
     cursor: pointer;
     font-size: 24px;
@@ -66,4 +74,15 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#textHeader{
+    display: inline;
+    vertical-align: middle;
+}
+
+#logo{
+    display: inline;
+    vertical-align: middle;
+    width: 5%;
 }
