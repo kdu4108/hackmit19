@@ -6,7 +6,20 @@ import raw_data_processing as rdp
 def write_speed_vs_time_data_to_csv(data):
     
     table = rdp.get_table(data)
-    table = table.drop(['engine_speed', 'brake_pedal_status', 'latitude',           'longitude', 'fuel_consumed_since_restart', 'steering_wheel_angle', 'fine_odometer_since_restart', 'parking_brake_status', 'headlamp_status', 'windshield_wiper_status', 'odometer', 'high_beam_status', 'fuel_level', 'ignition_status', 'powertrain_torque', 'accelerator_pedal_position', 'transmission_gear_position'], axis=1)
+    cols_wanted = ['timestamp','vehicle_speed',     'fuel_consumed_since_restart','odometer']
+    cols_to_delete = []
+    for col in list(table):
+        if col not in cols_wanted:
+            cols_to_delete.append(col)
+    table = table.drop(cols_to_delete, axis=1)
+    table = rdp.remove_nan_from_table(table, cols_wanted)
+    mpg = [0]
+    for r in range(1,len(table)):
+        delta_d = table['odometer'][r] - table['odometer'][r]
+        delta_f = table['fuel_consumed_since_restart'][r] - table['odometer'][r]
+        inst_mpg = delta_d/delta_f
+        mpg.append(inst_mpg)
+    table['instantaneous_mpg'] = mpg
     table.to_csv('time_v_speed.csv')
     return table
 
