@@ -1,21 +1,21 @@
-,Cities: Delhi,MPG
-0,Aiims_to_new_delhi_railway,25.262472487929983
-1,Kalindi_kunj_bridge_to_apollo_hospital,16.068193947073972
-2,Rml_hospital_to_red_fort,13.1539295830845
-3,Aiims_to_dnd_toll,17.283699828873374
-4,Ghitorni_metro_to_aiims,22.28996253723802
-5,Aiims_to_border_roads_organisation,15.36063465003127
-6,Sector_16a_noida_to_aiims,31.868390796849482
-7,Dnd_toll_plaza_to_aiims,33.41344698327421
-8,Red_fort_to_rml_hospital,19.8889264444926
-9,Aiims_to_ghitorni_metro,18.45584063117588
-10,Apollo_hospita_to_aiims,20.246648796356997
-11,New_delhi_railway_to_aiims,20.554926065521148
-12,Aiims_to_fortis_hospital,17.922936910484044
-13,Rml_hospital_to_moolchand,22.389995379692124
-14,Filmcity_noida_to_hcl_sec_125_noida,28.589492726969514
-15,Fortis_hospital_to_aiims,21.656275077822947
-16,Aiims_to_hcl_sector 125,30.482287185580006
-17,Border_roads_organisation_to_aiims,19.694649750843205
-18,Sector_125_noida_to_rml_hospital,31.058851007091693
-19,Aiims_to_filmcity_sec_16a_noida,22.83110901596374
+,Subcity,MPG
+0,AIIMS to New Delhi Railway,25.262472487929983
+1,Kalindi Kunj Bridge to Apollo Hospital,16.068193947073972
+2,RML Hospital to Red Fort,13.1539295830845
+3,AIIMS to DND Toll,17.283699828873374
+4,Ghitorni Metro to AIIMS,22.28996253723802
+5,AIIMS to Border Roads Organisation,15.36063465003127
+6,Sector 16A Noida to AIIMS,31.868390796849482
+7,DND Toll Plaza to AIIMS,33.41344698327421
+8,Red Fort to RML Hospital,19.8889264444926
+9,AIIMS to Ghitorni Metro,18.45584063117588
+10,Apollo Hospital To AIIMS,20.246648796356997
+11,New Delhi Railway To AIIMS,20.554926065521148
+12,AIIMS to Fortis Hospital,17.922936910484044
+13,RML Hospital to Moolchand,22.389995379692124
+14,Filmcity Noida to HCL Sec 125 Noida,28.589492726969514
+15,Fortis Hospital to AIIMS,21.656275077822947
+16,AIIMS to HCL Sector 125,30.482287185580006
+17,Border Roads Organisation to AIIMS,19.694649750843205
+18,Sector 125 Noida to RML Hospital,31.058851007091693
+19,AIIMS to Filmcity Sec 16A Noida,22.83110901596374

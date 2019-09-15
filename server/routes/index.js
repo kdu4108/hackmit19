@@ -49,7 +49,7 @@ router.get('/cities/:cityName', function(req, res, next) {
     'Taiwan': (n) => n.replace('-can.csv', '').match(/[A-z0-9][a-z]*/g).join('_'),
     'Delhi': (n) => n.replace('.csv', '')
   };
-
+  var cityMPGFile = 'mpg/' + cityMap[cityName] + '_mpg_data.csv';
   var files = fs.readdirSync(path.resolve(__dirname, '../public/csv/cities/' + cityMap[cityName] + '/'));
   var subCities = files.map(function(f) {
     return {
@@ -58,7 +58,10 @@ router.get('/cities/:cityName', function(req, res, next) {
     }
   })
 
-  res.render('city', {title: cityName, name: cityName, cityRoute: cityRoute, subCities: subCities});
+  readCSV.readCSV(cityMPGFile).then(function(MPGData) {
+    res.render('city', {title: cityName, name: cityName, cityRoute: cityRoute, subCities: subCities, MPGData: MPGData});
+  })
+
 
 })
 
