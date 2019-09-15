@@ -35,7 +35,22 @@ router.get('/cities', function(req, res, next) {
 router.get('/cities/:cityName/:subCityName', function(req, res, next) {
   var cityName = formatName(req.params.cityName);
   var subCityName = formatName(req.params.subCityName);
-  res.render('subcity', { title: cityName + ' ' + subCityName, city: cityName, subcity: subCityName, speedMPGData: {} });
+  var cityMap = {
+    'New York City': 'nyc',
+    'Delhi': 'delhi',
+    'Taiwan': 'taiwan'
+  };
+  var subCityMap = {
+    'New York City': (n) => n.replace('_', '-') + '.csv',
+    'Taiwan': (n) => n.split('_').join('') + '-can.csv',
+    'Delhi': (n) => n + '.csv'
+  };
+  var fileName = '/cities/' + cityMap[cityName] + '/' + subCityMap[cityName](req.params.subCityName);
+  readCSV.readCSV(fileName, 200).then(function(speedMPGData) {
+    res.render('subcity', { title: cityName + ' ' + subCityName, city: cityName, subcity: subCityName, speedMPGData: speedMPGData });
+  }).catch(function(err) {
+    res.render('error', {message: err, error: {status: '', stack: ''}});
+  })
 })
 
 module.exports = router;
