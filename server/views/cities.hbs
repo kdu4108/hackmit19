@@ -1,0 +1,28 @@
+<link rel='stylesheet' href='/stylesheets/cities.css' />
+<h1>Check out the fuel patterns of the following cities!</h1> 
+{{!-- <p>Welcome to {{title}}</p> --}}
+<div style="width:100%;">
+  <canvas id="canvas"></canvas>
+  <canvas id="newCanvas"></canvas>
+  {{!-- <canvas id="barChartCanvas"></canvas> --}}
+</div>
+<br>
+<br>
+<button class="city" id="nyc">NYC</button>
+<button class="city" id="delhi">Delhi</button>
+<button class="city" id="taiwan">Taiwan</button>
+
+<script>
+var mpg_per_city = {{{json mpg_per_city}}};
+console.log(mpg_per_city);
+</script>
+<script src="/javascripts/utils.js"></script>
+<script src="/javascripts/line_demo_1.js"></script>
+{{!-- <script src="/javascripts/barChart.js"></script> --}}
+<style>
+canvas{
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+</style>
