@@ -1,5 +1,50 @@
 <h1>City Comparison</h1>
-<div style = "width: 100%">
-  <canvas id = "citycanvas"></canvas>
+<!-- <div style = "width: 100%; height: 100vh;">
+  <div class = "column w-50">
+    <div class = "red circle-block">
+      <div class = "green circle">New York</div>
+    </div>
+  </div>
+  <div class = "column w-50">
+    <div class = "green circle-block">Delhi</div>
+  </div>
+  <div class = "column w-100 content-center">
+    <div class = "centered blue circle-block w-50">Taiwan</div>
+  </div>
+</div> -->
+<div class = "w-100 h-100">
+  <canvas id = "citycanvas" class = "h-100 w-100"></canvas>
 </div>
 <script src="/javascripts/cities.js"></script>
+<style>
+.centered {
+  margin: auto;
+}
+.column {
+  float: left;
+  height: 50%;
+}
+.w-50 {
+  width: 50%;
+}
+.w-100 {
+  width: 100%;
+}
+.red {
+  background-color: red;
+}
+.blue {
+  background-color: blue;
+}
+.green {
+  background-color: green;
+}
+.circle-block {
+  height: 100%;
+  padding: 40px;
+  /* margin: 15px; */
+}
+.circle {
+  height: 100%;
+}
+</style>
