@@ -23,10 +23,13 @@ var config = {
         // }]
     },
     options: {
+        legend: {
+          display: false
+        },
         responsive: true,
         title: {
             display: true,
-            text: 'Variable One and Variable Two Over Time'
+            text: 'Highway Speed'
         },
         tooltips: {
             mode: 'index',
