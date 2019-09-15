@@ -90,7 +90,47 @@ def write_mpg_vs_behavior_data_to_csv():
         data.append({'Behavior': display_name, 'MPG': mpg})
         
     df = pd.DataFrame(data)
-    df.to_csv('mpg_data.csv')
+    df.to_csv('../server/public/csv/mpg/behavior_mpg_data.csv')
+    print("CSV'd behavior data.")
+    data = []
+    for file_name in NYC_DATA_FILES:
+        df = get_table(os.path.join(NYC_DATA_DIR, file_name))
+        relevant_columns = get_desired_columns(df, [['odometer', 'fine_odometer_since_restart'], ['fuel_consumed_since_restart']])
+        df = remove_nan_from_table(df, relevant_columns)
+        df = df[relevant_columns]
+        mpg = get_miles_per_gallon(df, relevant_columns)
+        display_name = get_uppercase_name(file_name)
+        data.append({'Cities:NYC': display_name, 'MPG': mpg})
+    
+    df = pd.DataFrame(data)
+    df.to_csv('../server/public/csv/mpg/nyc_mpg_data.csv')
+    print("CSV'd NYC data.")
+    data = []
+    for file_name in TWN_DATA_FILES:
+        df = get_table(os.path.join(TWN_DATA_DIR, file_name))
+        relevant_columns = get_desired_columns(df, [['odometer', 'fine_odometer_since_restart'], ['fuel_consumed_since_restart']])
+        df = remove_nan_from_table(df, relevant_columns)
+        df = df[relevant_columns]
+        mpg = get_miles_per_gallon(df, relevant_columns)
+        display_name = get_uppercase_name(file_name)
+        data.append({'Cities: Taiwan': display_name, 'MPG': mpg})
+        
+    df = pd.DataFrame(data)
+    df.to_csv('../server/public/csv/mpg/taiwan_mpg_data.csv')
+    print("CSV'd TWN data.")
+    data = []
+    for file_name in DEL_DATA_FILES:
+        df = get_table(os.path.join(DEL_DATA_DIR, file_name))
+        relevant_columns = get_desired_columns(df, [['odometer', 'fine_odometer_since_restart'], ['fuel_consumed_since_restart']])
+        df = remove_nan_from_table(df, relevant_columns)
+        df = df[relevant_columns]
+        mpg = get_miles_per_gallon(df, relevant_columns)
+        display_name = get_uppercase_name(file_name)
+        data.append({'Cities: Delhi': display_name, 'MPG': mpg})
+        
+    df = pd.DataFrame(data)
+    df.to_csv('../server/public/csv/mpg/delhi_mpg_data.csv')
+    print("CSV'd DEL data.")   
             
     
 def main():
