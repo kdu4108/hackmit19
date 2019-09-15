@@ -1,24 +1,26 @@
-var time = [1, 2, 3, 4, 5];
-var variableOne = [1, 2, 3, 4, 5]
-var variableTwo = [2, 3, 4, 5, 6]
-console.log(timeVsSpeed);
+var time = timeVsSpeed.timestamp;
+var speed = timeVsSpeed.vehicle_speed;
+var firstTime = time[0];
+time = time.map((t)=>moment.unix(t-firstTime).format('m:ss'));
+
 var config = {
     type: 'line',
     data: {
         labels: time,
         datasets: [{
-            label: 'time vs variable one',
+            label: 'time vs speed',
             backgroundColor: window.chartColors.red,
             borderColor: window.chartColors.red,
-            data: variableOne,
+            data: speed,
             fill: false,
-        }, {
-            label: 'time vs variable two',
-            fill: false,
-            backgroundColor: window.chartColors.blue,
-            borderColor: window.chartColors.blue,
-            data: variableTwo,
-        }]
+          }]
+        // }, {
+        //     label: 'time vs variable two',
+        //     fill: false,
+        //     backgroundColor: window.chartColors.blue,
+        //     borderColor: window.chartColors.blue,
+        //     data: variableTwo,
+        // }]
     },
     options: {
         responsive: true,
@@ -39,14 +41,14 @@ var config = {
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Time'
+                    labelString: 'Time (minutes)'
                 }
             }],
             yAxes: [{
                 display: true,
                 scaleLabel: {
                     display: true,
-                    labelString: 'Driving Factors'
+                    labelString: 'Speed (kph)'
                 }
             }]
         }

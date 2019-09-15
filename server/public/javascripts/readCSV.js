@@ -2,7 +2,7 @@ const csv = require('csv-parser');
 const fs = require('fs');
 const path= require('path');
 
-var readCSV = function(fileName) {
+var readCSV = function(fileName, maxDataPoints=undefined) {
   return new Promise(function(resolve, reject) {
     var data = []
     fs.createReadStream(path.resolve(__dirname, '../../public/csv/' + fileName))
@@ -24,6 +24,12 @@ var readCSV = function(fileName) {
           } else {
             columns[column].push(null);
           }
+        }
+      }
+      if(maxDataPoints != undefined && data.length > maxDataPoints) {
+        var n = parseInt(data.length/maxDataPoints);
+        for (column in columns) {
+          columns[column] = columns[column].filter((_, i) => i % n == 0);
         }
       }
       resolve(columns);

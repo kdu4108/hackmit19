@@ -4,7 +4,7 @@ const readCSV = require('./../public/javascripts/readCSV.js')
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  readCSV.readCSV('time_v_speed.csv').then(function(data) {
+  readCSV.readCSV('time_v_speed.csv', 200).then(function(data) {
     res.render('index', { title: 'Express', timeVsSpeed: data});
   });
 });
