@@ -1,79 +1,30 @@
-<<<<<<< HEAD
 <link rel='stylesheet' href='/stylesheets/cities.css' />
 <h1>Check out the fuel patterns of the following cities!</h1> 
 {{!-- <p>Welcome to {{title}}</p> --}}
-<div style="width:100%;">
-  <canvas id="canvas"></canvas>
-  <canvas id="newCanvas"></canvas>
-  {{!-- <canvas id="barChartCanvas"></canvas> --}}
-</div>
-<br>
-<br>
-<button class="city" id="nyc">NYC</button>
-<button class="city" id="delhi">Delhi</button>
-<button class="city" id="taiwan">Taiwan</button>
 
-<script>
-var mpg_per_city = {{{json mpg_per_city}}};
-console.log(mpg_per_city);
-</script>
-<script src="/javascripts/utils.js"></script>
-<script src="/javascripts/line_demo_1.js"></script>
-{{!-- <script src="/javascripts/barChart.js"></script> --}}
-<style>
-canvas{
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-=======
-<h1>City Comparison</h1>
-<!-- <div style = "width: 100%; height: 100vh;">
-  <div class = "column w-50">
-    <div class = "red circle-block">
-      <div class = "green circle">New York</div>
+<br>
+<br>
+<div class="flexcontainer">
+    <div>
+        <button class="city" id="nyc" onclick="window.location.href = '/cities/new_york_city'">NYC</button>
     </div>
-  </div>
-  <div class = "column w-50">
-    <div class = "green circle-block">Delhi</div>
-  </div>
-  <div class = "column w-100 content-center">
-    <div class = "centered blue circle-block w-50">Taiwan</div>
-  </div>
-</div> -->
-<div class = "w-100 h-100">
-  <canvas id = "citycanvas" class = "h-100 w-100"></canvas>
+    <div>
+        <button class="city" id="delhi" onclick="window.location.href = '/cities/delhi'">Delhi</button>
+    </div>
+    <div>
+        <button class="city" id="taiwan" onclick="window.location.href = '/cities/taiwan'">Taiwan</button>
+    </div>
 </div>
-<script src="/javascripts/cities.js"></script>
-<style>
-.centered {
-  margin: auto;
-}
-.column {
-  float: left;
-  height: 50%;
-}
-.w-50 {
-  width: 50%;
-}
-.w-100 {
-  width: 100%;
-}
-.red {
-  background-color: red;
-}
-.blue {
-  background-color: blue;
-}
-.green {
-  background-color: green;
-}
-.circle-block {
-  height: 100%;
-  padding: 40px;
-  /* margin: 15px; */
-}
-.circle {
-  height: 100%;
->>>>>>> 6e4116d8f0a1eeda72741dfbf080a2911d1e0d76
-}
-</style>
+<script defer>
+    var mpg_per_city = {{{json mpg_per_city}}};
+    let nyc = document.getElementById("nyc");
+    nyc.style.width = (parseInt(mpg_per_city["NYC"][0], 10) * 10).toString().concat("px");
+    nyc.style.height = (parseInt(mpg_per_city["NYC"][0], 10) * 10).toString().concat("px");
+    let delhi = document.getElementById("delhi");
+    delhi.style.width = (parseInt(mpg_per_city["Delhi"][0], 10) * 10).toString().concat("px");
+    delhi.style.height = (parseInt(mpg_per_city["Delhi"][0], 10) * 10).toString().concat("px");
+    let taiwan = document.getElementById("taiwan");
+    taiwan.style.width = (parseInt(mpg_per_city["Taiwan"][0], 10) * 10).toString().concat("px");
+    taiwan.style.height = (parseInt(mpg_per_city["Taiwan"][0], 10) * 10).toString().concat("px");
+    console.log(mpg_per_city);
+</script>

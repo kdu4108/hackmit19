@@ -6,13 +6,37 @@
     padding: 20px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
     font-size: 16px;
-    margin: 4px 2px;
+    display:block;
+    height: 300px;
+    width: 300px;
+    margin: 5px;
+    cursor:pointer;
 }
 
-.button1 {border-radius: 2px;}
-.button2 {border-radius: 4px;}
-.button3 {border-radius: 8px;}
-.button4 {border-radius: 12px;}
-.button5 {border-radius: 50%;}
+.city:hover {
+    background-image:url("/imgs/nyc.jpg"); /* Green */
+    font-size: 24px;
+    opacity: 0.5;
+    color: black;
+}
+
+#nyc {
+    background-image: url("/imgs/nyc.jpg");
+    background-position: center center;
+}
+
+#delhi {
+    background-image: url("/imgs/delhi.jpg");
+    background-position: center center;
+}
+
+#taiwan {
+    background-image: url("/imgs/taiwan.jpg");
+    background-position: center center;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+}
