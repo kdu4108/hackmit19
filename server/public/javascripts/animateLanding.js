@@ -11,12 +11,14 @@ $(function() {
         return;
     }
     setTimeout(function(){
-        document.getElementById('cloud1').style.visibility = 'visible';
+        document.getElementById('cloud1container').style.visibility = 'visible';
     },3000);
     setTimeout(function(){
-        document.getElementById('cloud2').style.visibility = 'visible';
+        document.getElementById('cloud2container').style.visibility = 'visible';
     },4500);
-    // var cloud1 = $("#cloud1"),
+    setTimeout(function(){
+        document.getElementById('car').style.visibility = 'hidden';
+    },5000);    // var cloud1 = $("#cloud1"),
     // width = cloud1.get(0).width,
     // screenWidth = $(window).width(),
     // duration = 8000;
