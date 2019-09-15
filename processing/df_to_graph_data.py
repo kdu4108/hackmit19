@@ -2,6 +2,7 @@ import json
 import numpy as np
 import pandas as pd
 import raw_data_processing as rdp
+import matplotlib
 
 def write_time_vs_speed_data_to_csv(data):
     table = rdp.get_table(data)
