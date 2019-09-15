@@ -10,6 +10,24 @@ $(function() {
         }, duration, animatePlane);
         return;
     }
+
+    function animateSkyline() {
+      var skyline = $('#skyline');
+
+      var pos = skyline.css( "background-position" ).split( " " );
+
+
+  		var x = parseInt( pos[0], 10 ) || 0;
+  		var y = parseInt( pos[1], 10 ) || 0;
+
+
+      skyline.animate({
+        x: x,
+        y: y
+      }, 10000, 'linear');
+
+    }
+
     setTimeout(function(){
         document.getElementById('cloud1container').style.visibility = 'visible';
     },3000);
@@ -37,5 +55,6 @@ $(function() {
     // }
 
     animatePlane();//.thenReturn(animateClouds());
+    // animateSkyline();
     // animateClouds();
 });
