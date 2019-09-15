@@ -43,7 +43,7 @@ router.get('/cities/:cityName', function(req, res, next) {
   };
   var subCityMap = {
     'New York City': (n) => n.replace('-', '_').replace('.csv', ''),
-    'Taiwan': (n) => n.match(/[A-z][a-z]+/g).join('_').replace('-can.csv', ''),
+    'Taiwan': (n) => n.replace('-can.csv', '').match(/[A-z0-9][a-z]*/g).join('_'),
     'Delhi': (n) => n.replace('.csv', '')
   };
 
