@@ -18,4 +18,8 @@ router.get('/', function(req, res, next) {
   })
 });
 
+router.get('/cities', function(req, res, next) {
+  res.render('cities', {title: 'Cities'});
+})
+
 module.exports = router;
