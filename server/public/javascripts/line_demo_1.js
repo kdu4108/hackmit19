@@ -1,6 +1,7 @@
 var time = [1, 2, 3, 4, 5];
 var variableOne = [1, 2, 3, 4, 5]
 var variableTwo = [2, 3, 4, 5, 6]
+console.log(timeVsSpeed);
 var config = {
     type: 'line',
     data: {
