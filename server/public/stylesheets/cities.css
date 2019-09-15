@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'rubik';
+    src: url('/fonts/Rubik-Medium.ttf');
+}
+body {
+    background-color: lightcyan;
+}
 .city {
     background-color: #4CAF50;
     border: none;
@@ -11,6 +18,7 @@
     height: 300px;
     width: 300px;
     margin: 5px;
+    font-family: 'rubik';
     cursor:pointer;
 }
 

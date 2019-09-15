@@ -1,7 +1,15 @@
+@font-face {
+  font-family: 'rubik';
+  src: url('/fonts/Rubik-Medium.ttf');
+}
+
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   color: #000247;
+  background-color: lightcyan;
+
+  font-family: 'rubik';
 }
 
 a {
