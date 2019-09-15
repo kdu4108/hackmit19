@@ -29,9 +29,12 @@ router.get('/', function(req, res, next) {
   })
 });
 
+/* GET cities page. */
 router.get('/cities', function(req, res, next) {
-  res.render('cities', {title: 'Cities'});
-})
+  readCSV.readCSV('cities_avg_mpg.csv', 200).then(function(data) {
+    res.render('cities', { title: 'Cities', mpg_per_city: data});
+  });
+});
 
 router.get('/cities/:cityName', function(req, res, next) {
   var cityName = formatName(req.params.cityName);

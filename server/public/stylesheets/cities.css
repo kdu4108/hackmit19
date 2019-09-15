@@ -1,0 +1,42 @@
+.city {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 100%;
+    color: white;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    display:block;
+    height: 300px;
+    width: 300px;
+    margin: 5px;
+    cursor:pointer;
+}
+
+.city:hover {
+    background-image:url("/imgs/nyc.jpg"); /* Green */
+    font-size: 24px;
+    opacity: 0.5;
+    color: black;
+}
+
+#nyc {
+    background-image: url("/imgs/nyc.jpg");
+    background-position: center center;
+}
+
+#delhi {
+    background-image: url("/imgs/delhi.jpg");
+    background-position: center center;
+}
+
+#taiwan {
+    background-image: url("/imgs/taiwan.jpg");
+    background-position: center center;
+}
+
+.flexcontainer {
+    display: flex;
+    flex-direction: row;
+}
